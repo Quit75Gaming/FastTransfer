@@ -75,7 +75,7 @@ class FastTransfer extends PluginBase{
 	}
 
 
-	public function onCommand(CommandSender $sender, Command $command, String $label, array $args){
+	public function onCommand(CommandSender $sender, Command $cmd, String $label, array $args){
 		if($label === "transfer"){
 			if(count($args) < 2 or count($args) > 3 or (count($args) === 2 and !($sender instanceof Player))){
 				$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$command->getUsage()]));
