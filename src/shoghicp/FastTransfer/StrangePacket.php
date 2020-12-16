@@ -31,13 +31,13 @@ class StrangePacket extends DataPacket{
 
 	protected function putAddress($addr, $port, $version = 4){
 		$this->putByte($version);
-		if($version === 4){
+		if ($version === 4){
 			foreach(explode(".", $addr) as $b){
 				$this->putByte((~((int) $b)) & 0xff);
 			}
 			$this->putShort($port);
 		}else{
-			//IPv6
+			//IPv4
 		}
 	}
 
