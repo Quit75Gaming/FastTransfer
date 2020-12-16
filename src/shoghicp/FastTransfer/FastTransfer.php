@@ -45,17 +45,17 @@ class FastTransfer extends PluginBase{
 	public function transferPlayer(Player $player, $address, $port = 19132, $message = "You are being transferred"){
 		$ev = new PlayerTransferEvent($player, $address, $port, $message);
 		$this->getServer()->getPluginManager()->callEvent($ev);
-		if ($ev->isCancelled()){
+		if($ev->isCancelled()){
 			return false;
 		}
 
 		$ip = $this->lookupAddress($ev->getAddress());
 
-		if ($ip === null){
+		if($ip === null){
 			return false;
 		}
 		
-		if ($message !== null and $message !== ""){
+		if($message !== null and $message !== ""){
 			$player->sendMessage($message);	
 		}
 
@@ -76,7 +76,7 @@ class FastTransfer extends PluginBase{
 
 
 	public function onCommand(CommandSender $sender, Command $cmd, String $label, array $args){
-		if ($label === "transfer"){
+		if($label === "transfer"){
 			if(count($args) < 2 or count($args) > 3 or (count($args) === 2 and !($sender instanceof Player))){
 				$sender->sendMessage(new TranslationContainer("commands.generic.usage", [$command->getUsage()]));
 
@@ -86,7 +86,7 @@ class FastTransfer extends PluginBase{
 			/** @var Player $target */
 			$target = $sender;
 
-			if (count($args) === 3){
+			if(count($args) === 3){
 				$target = $sender->getServer()->getPlayer($args[0]);
 				$address = $args[1];
 				$port = (int) $args[2];
@@ -95,13 +95,13 @@ class FastTransfer extends PluginBase{
 				$port = (int) $args[1];
 			}
 
-			if ($target === null){
+			if($target === null){
 				$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.generic.player.notFound"));
 				return true;
 			}
 
 			$sender->sendMessage("Transferring player " . $target->getDisplayName() . " to $address:$port");
-			if (!$this->transferPlayer($target, $address, $port)){
+			if(!$this->transferPlayer($target, $address, $port)){
 				$sender->sendMessage(TextFormat::RED . "An error occurred during the transfer");
 			}
 
@@ -118,18 +118,18 @@ class FastTransfer extends PluginBase{
 	 */
 	private function lookupAddress($address){
 		//IP address
-		if (preg_match("/^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$/", $address) > 0){
+		if(preg_match("/^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$/", $address) > 0){
 			return $address;
 		}
 
 		$address = strtolower($address);
 
-		if (isset($this->lookup[$address])){
+		if(isset($this->lookup[$address])){
 			return $this->lookup[$address];
 		}
 
 		$host = gethostbyname($address);
-		if ($host === $address){
+		if($host === $address){
 			return null;
 		}
 
