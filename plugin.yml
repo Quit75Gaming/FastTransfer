@@ -1,16 +1,18 @@
 name: FastTransfer
+author: shoghicp
 version: 2.6.0
+description: Transfer vanilla Minecraft: PE clients to another server
+main: FastTransfer\Main
 api: 3.15.0
 mcpe-protocol: [408,419]
-main: shoghicp\FastTransfer\FastTransfer
-author: shoghicp
-website: "https://github.com/shoghicp/FastTransfer"
-description: "Transfer vanilla Minecraft: PE clients to another server"
+website: https://github.com/shoghicp/FastTransfer
+
 commands:
  transfer:
   permission: fasttransfer.command.transfer
-  usage: "/transfer [player] <address> <port>"
+  usage: /transfer [player] <address> <port>
+
 permissions:
- fasttransfer.command.transfer:
-  description: "Allows to transfer players to another server"
+ fasttransfer.command.transfer
+  description: Allows to transfer players to another server
   default: op
